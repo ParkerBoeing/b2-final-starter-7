@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: bulk_discounts_starter_7_production
-  username: bulk_discounts_starter_7
-  password: <%= ENV["BULK_DISCOUNTS_STARTER_7_DATABASE_PASSWORD"] %>
+  # url: <%= ENV['DATABASE_URL'] %>
+  # database: bulk_discounts_starter_7_production
+  # username: bulk_discounts_starter_7
+  # password: <%= ENV["BULK_DISCOUNTS_STARTER_7_DATABASE_PASSWORD"] %>

@@ -34,4 +34,10 @@ FactoryBot.define do
     merchant
     invoice
   end
+
+  factory :bulk_discount do
+    percent_discount {Faker::Number.between(from: 1, to: 50)}
+    quantity_threshold {Faker::Number.between(from: 5, to: 25)}
+    merchant
+  end
 end

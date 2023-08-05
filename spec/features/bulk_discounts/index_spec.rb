@@ -85,4 +85,19 @@ describe "merchant bulk_discounts index" do
     expect(current_path).to eq(merchant_bulk_discount_path(@merchant1, @discount_1))
   end
 
+  it "has a link to create a new bulk discount" do
+    it "should have a link to create a new bulk discount" do
+      expect(page).to have_link("Create Discount")
+      click_link "Create Discount"
+  
+      expect(current_path).to eq(new_merchant_bulk_discount_path)
+      fill_in :percent_discount, with: 30
+      fill_in :quantity_threshold, with: 50
+      click_button "Submit"
+  
+      expect(current_path).to eq(visit merchant_bulk_discounts_path(@merchant1))
+      expect(page).to have_content("Quantity Threshold: 50")
+      expect(page).to have_content("Percent Discount: 30")
+    end
+  end
 end

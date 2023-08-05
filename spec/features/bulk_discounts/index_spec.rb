@@ -73,19 +73,16 @@ describe "merchant bulk_discounts index" do
   end
 
   it "each bulk discount has a link to its show page" do
-
     expect(page).to have_link("#{@discount_1.id}")
     expect(page).to have_link("#{@discount_2.id}")
     expect(page).to have_link("#{@discount_3.id}")
     expect(page).to have_link("#{@discount_4.id}")
     expect(page).to have_link("#{@discount_5.id}")
-    expect(page).to have_link("#{@discount_6.id}")
-    expect(page).to have_link("#{@discount_7.id}")
-    expect(page).to_not have_link("#{@discount_8.id}")
+    expect(page).to_not have_link("#{@discount_6.id}")
 
     click_link "#{@discount_1.id}"
 
-    expect(current_path).to eq(merchant_buk_discount_path(@merchant1, @discount_1))
+    expect(current_path).to eq(merchant_bulk_discount_path(@merchant1, @discount_1))
   end
 
 end

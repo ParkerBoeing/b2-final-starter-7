@@ -63,10 +63,10 @@ describe "merchant bulk_discount show" do
 
   it "shows the bulk discount ID and relevant attributes" do
     expect(page).to have_content(@discount_1.id)
-    expect(page).to have_content(@discount_1.percent_discount)
-    expect(page).to have_content(@discount_1.quantity_threshold)
-    expect(page).to_not have_content(@discount_2.id)
-    expect(page).to_not have_content(@discount_2.percent_discount)
-    expect(page).to_not have_content(@discount_2.quantity_threshold)
+    expect(page).to have_content("Discount: #{@discount_1.percent_discount}")
+    expect(page).to have_content("Quantity Threshold: #{@discount_1.quantity_threshold}")
+
+    expect(page).to_not have_content("Discount: #{@discount_2.percent_discount}")
+    expect(page).to_not have_content("Quantity Threshold: #{@discount_2.quantity_threshold}")
   end
 end

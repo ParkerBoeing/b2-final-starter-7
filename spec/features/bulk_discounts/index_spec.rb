@@ -115,4 +115,16 @@ describe "merchant bulk_discounts index" do
       expect(page).to_not have_content("Discount: 10")
     end
   end
+
+  it "displays the next three upcoming US holidays" do
+    upcoming_holidays = HolidaysService.upcoming_holidays
+    within "#Holidays" do
+      expect(page).to have_content(upcoming_holidays[0].name)
+      expect(page).to have_content(upcoming_holidays[0].date)
+      expect(page).to have_content(upcoming_holidays[1].name)
+      expect(page).to have_content(upcoming_holidays[1].date)
+      expect(page).to have_content(upcoming_holidays[2].name)
+      expect(page).to have_content(upcoming_holidays[2].date)
+    end
+  end
 end

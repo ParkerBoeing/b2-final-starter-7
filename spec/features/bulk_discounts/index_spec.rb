@@ -62,6 +62,7 @@ describe "merchant bulk_discounts index" do
   end
 
   it "can see all bulk discount ids and attributes that are associated with the merchant" do
+    save_and_open_page
     expect(page).to have_content(@discount_1.id)
     expect(page).to have_content(@discount_1.percent_discount)
     expect(page).to have_content(@discount_1.quantity_threshold)

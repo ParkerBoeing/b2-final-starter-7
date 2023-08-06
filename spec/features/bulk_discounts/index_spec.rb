@@ -62,7 +62,6 @@ describe "merchant bulk_discounts index" do
   end
 
   it "can see all bulk discount ids and attributes that are associated with the merchant" do
-    save_and_open_page
     expect(page).to have_content(@discount_1.id)
     expect(page).to have_content(@discount_1.percent_discount)
     expect(page).to have_content(@discount_1.quantity_threshold)
@@ -114,6 +113,18 @@ describe "merchant bulk_discounts index" do
     within "#Discounts" do
       expect(page).to_not have_content("Quantity Threshold: 5")
       expect(page).to_not have_content("Discount: 10")
+    end
+  end
+
+  it "displays the next three upcoming US holidays" do
+    upcoming_holidays = HolidaysService.upcoming_holidays
+    within "#Holidays" do
+      expect(page).to have_content(upcoming_holidays[0].name)
+      expect(page).to have_content(upcoming_holidays[0].date)
+      expect(page).to have_content(upcoming_holidays[1].name)
+      expect(page).to have_content(upcoming_holidays[1].date)
+      expect(page).to have_content(upcoming_holidays[2].name)
+      expect(page).to have_content(upcoming_holidays[2].date)
     end
   end
 end

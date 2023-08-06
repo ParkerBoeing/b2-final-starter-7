@@ -102,4 +102,17 @@ describe "merchant bulk_discounts index" do
       expect(page).to have_content("Discount: 30")
     end
   end
+
+  it "has a link to delete next to each bulk discount" do
+    within "##{@discount_1.id}" do
+      expect(page).to have_link("Delete Discount")
+      click_link "Delete Discount"
+    end
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
+
+    within "#Discounts" do
+      expect(page).to_not have_content("Quantity Threshold: 5")
+      expect(page).to_not have_content("Discount: 10")
+    end
+  end
 end

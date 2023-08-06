@@ -105,8 +105,8 @@ describe "merchant bulk_discounts index" do
 
   it "has a link to delete next to each bulk discount" do
     within "##{@discount_1.id}" do
-      expect(page).to have_link("Delete Discount")
-      click_link "Delete Discount"
+      expect(page).to have_button("Delete Discount")
+      click_button "Delete Discount"
     end
     expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
 

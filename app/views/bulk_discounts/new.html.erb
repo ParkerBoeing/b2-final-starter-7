@@ -1,4 +1,4 @@
-<%= form_with model: [@merchant, @discount], data: {turbo: false} do |form| %>
+<%= form_with model: [@merchant, @bulk_discount], data: {turbo: false} do |form| %>
   <%= form.label :percent_discount, "Percent Discount" %>
   <%= form.number_field :percent_discount, min: 0, max: 100 %>
 <br />

@@ -1,0 +1,9 @@
+<%= form_with model: [@merchant, @bulk_discount], data: {turbo: false} do |form| %>
+  <%= form.label :percent_discount, "Percent Discount" %>
+  <%= form.number_field :percent_discount, min: 0, max: 100 %>
+<br />
+  <%= form.label :quantity_threshold, "Quantity Threshold" %>
+  <%= form.number_field :quantity_threshold, min: 1 %>
+<br />
+  <%= form.submit %>
+<% end %>

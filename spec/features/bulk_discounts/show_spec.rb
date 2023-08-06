@@ -70,11 +70,11 @@ describe "merchant bulk_discount show" do
     expect(page).to_not have_content("Quantity Threshold: #{@discount_2.quantity_threshold}")
   end
 
-  it "should have a link to Update discount" do
-    expect(page).to have_link("Update Discount")
+  it "should have a link to Edit discount" do
+    expect(page).to have_link("Edit Discount")
 
-    click_link "Update Merchant"
+    click_link "Edit Discount"
 
-    expect(current_path).to eq(edit_admin_merchant_path(@m1))
+    expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant1, @discount_1))
   end
 end

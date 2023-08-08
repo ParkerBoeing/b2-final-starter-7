@@ -49,7 +49,7 @@ gem "bootstrap-sass"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-
+gem 'faraday' # Allows for API consumption
 
 
 group :development, :test do
@@ -64,7 +64,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "simplecov"
-  gem 'faraday' # Allows for API consumption
 end
 
 group :development do

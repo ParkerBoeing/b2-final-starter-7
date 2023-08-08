@@ -62,4 +62,11 @@ class Merchant < ApplicationRecord
   def disabled_items
     items.where(status: 0)
   end
+
+  def revenue_for_invoice(invoice_id)
+    invoice_items.joins(:item)
+                 .where("items.merchant_id = ?", self.id)
+                 .where("invoice_items.invoice_id = ?", invoice_id)
+                 .sum("invoice_items.quantity * invoice_items.unit_price")
+  end
 end

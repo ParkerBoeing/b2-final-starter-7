@@ -62,4 +62,32 @@ class Merchant < ApplicationRecord
   def disabled_items
     items.where(status: 0)
   end
+
+  def revenue_for_invoice(invoice_id)
+    invoice_items.joins(:item)
+                 .where("items.merchant_id = ?", self.id)
+                 .where("invoice_items.invoice_id = ?", invoice_id)
+                 .sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+
+  def discounted_revenue_for_invoice(invoice_id)
+    invoice_items = self.invoice_items.where("invoice_items.invoice_id = ?", invoice_id)
+    discounted_revenue = 0
+  
+    invoice_items.each do |ii|
+      applicable_discount = ii.item.merchant.bulk_discounts
+                               .where("bulk_discounts.quantity_threshold <= ?", ii.quantity)
+                               .order(percent_discount: :desc)
+                               .first
+                               
+      if applicable_discount
+        discounted_price = ii.unit_price * (1 - applicable_discount.percent_discount/100.0)
+        discounted_revenue += discounted_price * ii.quantity
+      else
+        discounted_revenue += ii.unit_price * ii.quantity
+      end
+    end
+  
+    discounted_revenue
+  end
 end

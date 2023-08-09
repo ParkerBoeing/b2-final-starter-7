@@ -129,6 +129,7 @@ describe Merchant do
       @ii_8 = InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_8.id, quantity: 1, unit_price: 5, status: 1, created_at: "2012-04-03 14:54:09")
       @ii_9 = InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_4.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
       @ii_10 = InvoiceItem.create!(invoice_id: @invoice_8.id, item_id: @item_4.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
+      
 
       @transaction1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
       @transaction2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
@@ -139,6 +140,12 @@ describe Merchant do
       @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
       @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
 
+      @discount_1 = BulkDiscount.create!(quantity_threshold: 5, percent_discount: 5, merchant: @merchant1)
+      @discount_2 = BulkDiscount.create!(quantity_threshold: 7, percent_discount: 10,merchant: @merchant1)
+      @discount_3 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 15,merchant: @merchant1)
+      @discount_4 = BulkDiscount.create!(quantity_threshold: 12, percent_discount: 17,merchant: @merchant1)
+      @discount_5 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 20,merchant: @merchant1)
+      @discount_6 = BulkDiscount.create!(quantity_threshold: 20, percent_discount: 25,merchant: @merchant2)
     end
     it "can list items ready to ship" do
       expect(@merchant1.ordered_items_to_ship).to eq([@item_1, @item_1, @item_3, @item_4, @item_7, @item_8, @item_4, @item_4])
@@ -167,6 +174,15 @@ describe Merchant do
     it "disabled_items" do 
       expect(@merchant1.disabled_items).to eq([@item_2, @item_3, @item_4, @item_7, @item_8])
       expect(@merchant2.disabled_items).to eq([@item_5, @item_6])
+    end
+
+    it "revenue_for_invoice(invoice)" do
+      @ii_11 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_5.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
+      expect(@merchant1.revenue_for_invoice(@invoice_1)).to eq(90)
+    end
+
+    it "discounted_revenue_for_invoice(invoice)" do
+      expect(@merchant1.discounted_revenue_for_invoice(@invoice_1)).to eq(81)
     end
   end
 end

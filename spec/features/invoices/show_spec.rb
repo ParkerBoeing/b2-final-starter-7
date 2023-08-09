@@ -100,4 +100,20 @@ RSpec.describe "invoices show" do
     end
   end
 
+  it "shows total revenue before and after discounts applied for the merchant from given invoice" do
+    @discount_1 = BulkDiscount.create!(quantity_threshold: 5, percent_discount: 5, merchant: @merchant1)
+    @discount_2 = BulkDiscount.create!(quantity_threshold: 7, percent_discount: 10,merchant: @merchant1)
+    @discount_3 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 15,merchant: @merchant1)
+    @discount_4 = BulkDiscount.create!(quantity_threshold: 12, percent_discount: 17,merchant: @merchant1)
+    @discount_5 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 20,merchant: @merchant1)
+    @discount_6 = BulkDiscount.create!(quantity_threshold: 20, percent_discount: 25,merchant: @merchant2)
+    @ii_12 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_5.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
+
+    visit merchant_invoice_path(@merchant1, @invoice_1)
+
+    within "#total_revenue" do
+      expect(page).to have_content(@merchant1.revenue_for_invoice(@invoice_1))
+      expect(page).to have_content(@merchant1.discounted_revenue_for_invoice(@invoice_1))
+    end
+  end
 end

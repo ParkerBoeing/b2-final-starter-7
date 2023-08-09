@@ -48,4 +48,10 @@
     </tbody>
   </table>
 
+  <div id="total_revenue">
+  <strong>Total revenue: </strong><%= @merchant.revenue_for_invoice(@invoice) %>
+  <strong>Total revenue after discounts: </strong><%= @merchant.discounted_revenue_for_invoice(@invoice) %>
+  </div>
+  <br>
+
 </body>

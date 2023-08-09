@@ -20,7 +20,7 @@ class Invoice < ApplicationRecord
       if applicable_discount
         discount = applicable_discount.percent_discount / 100.0
         discounted_price = invoice_item.unit_price * (1 - discount)
-        invoice_item.quantity * discounted_price
+        (invoice_item.quantity * discounted_price).round(2)
       else
         invoice_item.quantity * invoice_item.unit_price
       end

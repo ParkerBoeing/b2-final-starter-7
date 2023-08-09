@@ -86,7 +86,7 @@ describe "Admin Invoices Index Page" do
 
     visit admin_invoice_path(@invoice_1)
 
-    expect(page).to have_content("Discounted Revenue: $#{@invoice_1.discounted_revenue}")
+    expect(page).to have_content("Discounted Revenue: $#{@invoice_1.discounted_revenue.round(2)}")
     expect(page).to_not have_content(@i1.discounted_revenue)
   end
 

@@ -26,6 +26,7 @@
         <th class="th1">Quantity</th>
         <th class="th1">Unit Price</th>
         <th class="th1">Status</th>
+        <th class="th1">Applied Discount</th>
       </tr>
     </thead>
 
@@ -42,15 +43,23 @@
                 <%= f.submit 'Update Invoice' %>
               <% end %>
               </td>
+              
+            <% if @merchant.applicable_discount(i) %>
+            <td style="text-align:center">
+              <% discount = @merchant.applicable_discount(i) %>
+              <%= link_to discount.id, merchant_bulk_discount_path(@merchant, discount.id) %>
+            </td>
+            <% else %>
+            <% end %>
           </tr>
         </section>
       <% end %>
     </tbody>
   </table>
-
+  <br />
   <div id="total_revenue">
-  <strong>Total revenue: </strong><%= @merchant.revenue_for_invoice(@invoice) %>
-  <strong>Total revenue after discounts: </strong><%= @merchant.discounted_revenue_for_invoice(@invoice) %>
+  <strong>Total revenue: </strong>$<%= @merchant.revenue_for_invoice(@invoice) %> <br />
+  <strong>Total revenue after discounts: </strong>$<%= @merchant.discounted_revenue_for_invoice(@invoice) %>
   </div>
   <br>
 

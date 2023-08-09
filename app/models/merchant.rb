@@ -71,10 +71,9 @@ class Merchant < ApplicationRecord
   end
 
   def discounted_revenue_for_invoice(invoice_id)
-    invoice_items = self.invoice_items.where("invoice_items.invoice_id = ?", invoice_id)
     discounted_revenue = 0
   
-    invoice_items.each do |ii|
+    invoice_items.where("invoice_items.invoice_id = ?", invoice_id).each do |ii|
       applicable_discount = ii.item.merchant.bulk_discounts
                                .where("bulk_discounts.quantity_threshold <= ?", ii.quantity)
                                .order(percent_discount: :desc)

@@ -85,7 +85,7 @@ describe "Admin Invoices Index Page" do
     @discount_5 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 20,merchant: @merchant1)
 
     visit admin_invoice_path(@invoice_1)
-    save_and_open_page
+
     expect(page).to have_content("Discounted Revenue: $#{@invoice_1.discounted_revenue}")
     expect(page).to_not have_content(@i1.discounted_revenue)
   end

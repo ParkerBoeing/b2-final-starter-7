@@ -184,5 +184,9 @@ describe Merchant do
     it "discounted_revenue_for_invoice(invoice)" do
       expect(@merchant1.discounted_revenue_for_invoice(@invoice_1)).to eq(81)
     end
+
+    it "applicable_discount_by_item(invoice_item)" do
+      expect(@merchant1.applicable_discount_by_item(@ii_1)).to eq(@discount_2)
+    end
   end
 end

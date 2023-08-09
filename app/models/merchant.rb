@@ -90,4 +90,6 @@ class Merchant < ApplicationRecord
   
     discounted_revenue
   end
+
+
 end

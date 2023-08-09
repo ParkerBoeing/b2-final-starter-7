@@ -91,5 +91,10 @@ class Merchant < ApplicationRecord
     discounted_revenue
   end
 
-
+  def applicable_discount_by_item(invoice_item)
+    bulk_discounts
+                .where("bulk_discounts.quantity_threshold <= ?", invoice_item.quantity)
+                .order(percent_discount: :desc)
+                .first
+  end
 end
